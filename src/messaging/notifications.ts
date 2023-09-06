@@ -71,12 +71,7 @@ export = function configureMessaging(Messaging: Messaging): { notifyUsersInRoom:
             message: Message;
             uids: string[];
             self?: 0 | 1; // Define the type for 'self'
-        } = {
-            roomId: roomId,
-            fromUid: fromUid,
-            message: messageObj,
-            uids: uids,
-        };
+        }
 
         data = await plugins.hooks.fire('filter:messaging.notify', data);
 
