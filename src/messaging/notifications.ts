@@ -122,6 +122,4 @@ export = function configureMessaging(Messaging: Messaging): { notifyUsersInRoom:
     return {
         notifyUsersInRoom,
     };
-
 }
-

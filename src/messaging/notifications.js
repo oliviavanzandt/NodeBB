@@ -66,12 +66,7 @@ module.exports = function configureMessaging(Messaging) {
         return __awaiter(this, void 0, void 0, function* () {
             let uids = yield Messaging.getUidsInRoom(roomId, 0, -1);
             uids = yield user.blocks.filterUids(fromUid, uids);
-            let data = {
-                roomId: roomId,
-                fromUid: fromUid,
-                message: messageObj,
-                uids: uids,
-            };
+            let data;
             data = yield plugins.hooks.fire('filter:messaging.notify', data);
             if (!data || !data.uids || !data.uids.length) {
                 return;
