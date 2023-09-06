@@ -1,5 +1,4 @@
 'use strict';
-
 const meta = require('../meta');
 const plugins = require('../plugins');
 const db = require('../database');

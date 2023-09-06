@@ -20,6 +20,7 @@ interface Messaging {
     getUidsInRoom(roomId: string, start: number, end: number): Promise<string[]>;
     isGroupChat(roomId: string): Promise<boolean>;
     pushUnreadCount(uid: string): void;
+    notifyUsersInRoom(fromUid: string, roomId: string, messageObj: Message): Promise<void>;
 }
 
 type queueObject = {
@@ -126,5 +127,6 @@ export = function configureMessaging(Messaging: Messaging): { notifyUsersInRoom:
     return {
         notifyUsersInRoom,
     };
+
 }
 
