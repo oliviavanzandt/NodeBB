@@ -1,3 +1,4 @@
+//used ChatGPT to help me with conversions 
 import * as winston from 'winston';
 import * as user from '../user';
 import * as notifications from '../notifications';
