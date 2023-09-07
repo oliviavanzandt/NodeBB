@@ -1,4 +1,5 @@
-//used ChatGPT to help me with conversions 
+// used ChatGPT to help me with conversions
+
 import * as winston from 'winston';
 import * as user from '../user';
 import * as notifications from '../notifications';
@@ -72,7 +73,7 @@ export = function configureMessaging(Messaging: Messaging): { notifyUsersInRoom:
             message: Message;
             uids: string[];
             self?: 0 | 1; // Define the type for 'self'
-        }
+        };
 
         data = await plugins.hooks.fire('filter:messaging.notify', data);
 
@@ -106,18 +107,13 @@ export = function configureMessaging(Messaging: Messaging): { notifyUsersInRoom:
                     } catch (err) {
                         winston.error(`[messaging/notifications] Unable to send notification\n${err.stack}`);
                     }
+                    // The next line calls a function in a module that has not been updated to TS yet
+                    // eslint-disable-next-line
+                    //@typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
                 }, meta.config.notificationSendDelay * 1000),
             };
             notifyQueue[`${fromUid}:${roomId}`] = queueObj;
         }
-
-        queueObj.timeout = setTimeout(async () => {
-            try {
-                await sendNotifications(fromUid, uids, roomId, queueObj.message);
-            } catch (err) {
-                winston.error(`[messaging/notifications] Unable to send notification\n${err.stack}`);
-            }
-        }, meta.config.notificationSendDelay * 1000);
     }
 
     return {

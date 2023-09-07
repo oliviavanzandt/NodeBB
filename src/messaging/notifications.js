@@ -1,4 +1,5 @@
 "use strict";
+// used ChatGPT to help me with conversions
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -16,7 +17,7 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
     o["default"] = v;
 });
 var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;ty
+    if (mod && mod.__esModule) return mod;
     var result = {};
     if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
     __setModuleDefault(result, mod);
@@ -97,18 +98,13 @@ module.exports = function configureMessaging(Messaging) {
                         catch (err) {
                             winston.error(`[messaging/notifications] Unable to send notification\n${err.stack}`);
                         }
+                        // The next line calls a function in a module that has not been updated to TS yet
+                        // eslint-disable-next-line
+                        //@typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
                     }), meta.config.notificationSendDelay * 1000),
                 };
                 notifyQueue[`${fromUid}:${roomId}`] = queueObj;
             }
-            queueObj.timeout = setTimeout(() => __awaiter(this, void 0, void 0, function* () {
-                try {
-                    yield sendNotifications(fromUid, uids, roomId, queueObj.message);
-                }
-                catch (err) {
-                    winston.error(`[messaging/notifications] Unable to send notification\n${err.stack}`);
-                }
-            }), meta.config.notificationSendDelay * 1000);
         });
     }
     return {
