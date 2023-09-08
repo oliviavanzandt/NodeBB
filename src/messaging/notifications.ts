@@ -13,7 +13,7 @@ interface Message {
     roomId: string,
     system: boolean;
     content: string;
-    fromUser: {
+    fromUser: {a
         displayname: string;
     };
 }
@@ -105,11 +105,14 @@ export = function configureMessaging(Messaging: Messaging): { notifyUsersInRoom:
                     try {
                         await sendNotifications(fromUid, uids, roomId, queueObj.message);
                     } catch (err) {
+                        // The next line calls a function in a module that has not been updated to TS yet
+                        // @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+                        // eslint-disable-next-line
                         winston.error(`[messaging/notifications] Unable to send notification\n${err.stack}`);
                     }
                     // The next line calls a function in a module that has not been updated to TS yet
+                    // @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
                     // eslint-disable-next-line
-                    //@typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
                 }, meta.config.notificationSendDelay * 1000),
             };
             notifyQueue[`${fromUid}:${roomId}`] = queueObj;
